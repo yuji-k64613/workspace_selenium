@@ -2,6 +2,7 @@ package com.sample;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,12 +18,12 @@ public class SeleniumTest {
 	private WebDriver driver;
 
 	private WebDriver getWebDriver() {
-		// return new FirefoxDriver();
+//		return new FirefoxDriver();
 		WebDriver driver = null;
 		DesiredCapabilities firefox = DesiredCapabilities.firefox();
 		try {
-			//driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), firefox);
-			driver = new RemoteWebDriver(new URL("http://192.168.100.149:4444/wd/hub"), firefox);
+			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), firefox);
+			//driver = new RemoteWebDriver(new URL("http://192.168.100.149:4444/wd/hub"), firefox);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,11 +34,12 @@ public class SeleniumTest {
 	@Before
 	public void beforeTest() {
 		driver = getWebDriver();
-		System.setProperty("webdriver.gecko.driver", "/Users/konishiyuji/workspaces/selenium/bin");
+//		System.setProperty("webdriver.gecko.driver", "/Users/konishiyuji/workspaces/selenium/bin");
 	}
 
 	@Test
 	public void open() {
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://search.maven.org/");
 	}
 
